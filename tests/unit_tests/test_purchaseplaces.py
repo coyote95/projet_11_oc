@@ -1,43 +1,28 @@
 from projet_11_oc.tests.conftest import client, fixture_data
+from projet_11_oc.server import competitions, clubs  # Import the global variables
 
 
-# def test_purchase_places_status_code(client, fixture_data):
-#
-#         response = client.post('/purchasePlaces', data=fixture_data)
-#         assert response.status_code == 200
-#
-# def test_purchase_places_update_places(client, fixture_data):
-#     print(fixture_data)
-#     response = client.post('/purchasePlaces', data=fixture_data)
-#     assert fixture_data['numberOfPlaces'] is not None
-#
-#     initial_places = int(fixture_data['numberOfPlaces'])
-#     places_to_purchase = int(fixture_data['places'])
-#
-#     updated_places = initial_places - places_to_purchase
-#     print(updated_places)
-#
-#     # assert b'Number of Places: 23'in response.data
-#     print (response.data)
-#
-#     assert b'Great-booking complete!' in response.data
 
-def test_purchase_places(client):
-    form_data={
-        'competition': 'Spring Festival',
-        'club': 'Simply Lift',
-        'places': '2',
-        'numberOfPlaces':'25'
+def test_purchase_places_status_code(client, fixture_data):
 
-    }
+        response = client.post('/purchasePlaces', data=fixture_data)
+        assert response.status_code == 200
 
-    response = client.post('/purchasePlaces', data=form_data)
-    assert response.status_code == 200
+def test_purchase_places_points_allowed(client, fixture_data, monkeypatch):
+    print(fixture_data)
 
-    initial_places = int(form_data['numberOfPlaces'])
-    places_to_purchase = int(form_data['places'])
-    updated_places = initial_places - places_to_purchase
+    # Set the desired values for the global variables
+    mocked_clubs = [{"name": "Simply Lift", "points": 10}]
+    mocked_competitions = [{"name": "Spring Festival", "numberOfPlaces": 70}]
 
-    print(response.data)
-    assert b'Number of Places: 23'in response.data
+    # Use monkeypatch to substitute the global variables
+    monkeypatch.setattr('projet_11_oc.server.clubs', mocked_clubs)
+    monkeypatch.setattr('projet_11_oc.server.competitions', mocked_competitions)
+
+    response = client.post('/purchasePlaces', data=fixture_data)
+
+    print (response.data)
+    assert b'Number of Places: 64'in response.data #70 - 6 places
     assert b'Great-booking complete!' in response.data
+
+
