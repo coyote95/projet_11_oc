@@ -1,4 +1,4 @@
-import json
+import json, datetime
 from flask import Flask,render_template,request,redirect,flash,url_for
 from dotenv import load_dotenv
 
@@ -50,20 +50,27 @@ def book(competition,club):
 
 @app.route('/purchasePlaces',methods=['POST'])
 def purchasePlaces():
+
     competition = [c for c in competitions if c['name'] == request.form['competition']][0]
     club = [c for c in clubs if c['name'] == request.form['club']][0]
     placesRequired = int(request.form['places'])
     if competition and club:
-        if placesRequired <=12:
-            if int(club["points"]) >= placesRequired  :
-                competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
-                club['points'] = int(club['points']) - placesRequired
-                flash('Great-booking complete!')
+        current_date = datetime.datetime.now().date()
+        competition_date = datetime.datetime.strptime(competition['date'], '%Y-%m-%d %H:%M:%S').date()
 
+        if competition_date >= current_date:
+            if placesRequired <=12:
+                if int(club["points"]) >= placesRequired  :
+                    competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
+                    club['points'] = int(club['points']) - placesRequired
+                    flash('Great-booking complete!')
+
+                else:
+                    flash('Error: Insufficient places available for booking!')
             else:
-                flash('Error: Insufficient places available for booking!')
+                flash('Error: You cannot book more than 12 places!')
         else:
-            flash('Error: You cannot book more than 12 places!')
+            flash('Error: The competition has already passed.')
 
     return render_template('welcome.html', club=club, competitions=competitions)
 
