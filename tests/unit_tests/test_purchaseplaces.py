@@ -36,8 +36,8 @@ def test_purchase_places(client):
 
     initial_places = int(form_data['numberOfPlaces'])
     places_to_purchase = int(form_data['places'])
-
     updated_places = initial_places - places_to_purchase
 
+    print(response.data)
     assert b'Number of Places: 23'in response.data
     assert b'Great-booking complete!' in response.data
