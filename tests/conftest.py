@@ -16,3 +16,11 @@ def fixture_data():
         'club': 'Simply Lift',
         'places': '6'
     }
+@pytest.fixture
+def wrong_fixture_data():
+    return {
+        'competition': 'Spring Festival',
+        'club': 'Simply Lift',
+        'places': '13'
+    }
+

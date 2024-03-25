@@ -42,3 +42,19 @@ def test_purchase_places_points_unallowed(client, fixture_data, monkeypatch):
 
     print (response.data)
     assert b'Error: Insufficient places available for booking!'in response.data #6places in the fixture
+
+def test_purchase_places_more_twelve_points(client, wrong_fixture_data, monkeypatch):
+    print(fixture_data)
+
+    # Set the desired values for the global variables
+    mocked_clubs = [{"name": "Simply Lift", "points": 2}]   # 6 places in the fixture
+    mocked_competitions = [{"name": "Spring Festival", "numberOfPlaces": 70}]
+
+    # Use monkeypatch to substitute the global variables
+    monkeypatch.setattr('projet_11_oc.server.clubs', mocked_clubs)
+    monkeypatch.setattr('projet_11_oc.server.competitions', mocked_competitions)
+
+    response = client.post('/purchasePlaces', data=wrong_fixture_data)
+
+    print (response.data)
+    assert b'Error: You cannot book more than 12 places!'in response.data #6places in the fixture
