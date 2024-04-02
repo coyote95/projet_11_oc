@@ -1,38 +1,35 @@
 from flask import Flask, url_for
-from flask_testing import TestCase
 from projet_11_oc.server import app, loadClubs, loadCompetitions
-
-class TestIntegration(TestCase):
-
-    def create_app(self):
-        app.config['TESTING'] = True
-        app.config['SECRET_KEY'] = 'secret_key'
-        return app
-
-    def test_integration(self):
-        # Charge les données initiales
-        clubs = loadClubs()
-        competitions = loadCompetitions()
-
-        # Teste la page d'accueil
-        response = self.client.get('/')
-        self.assert_template_used('index.html')
-
-        # Teste la soumission du formulaire avec une adresse email valide
-        response = self.client.post('/showSummary', data={'email': 'john@simplylift.co'})
-        self.assert_template_used('welcome.html')
-
-        # Teste la réservation pour une compétition et un club existants
-        response = self.client.get('/book/Spring%20Festival/Simply%20Lift')
-        self.assert_template_used('booking.html')
-
-        # Teste l'achat de places avec des données valides
-        response = self.client.post('/purchasePlaces', data={'competition': 'Spring Festival', 'club': 'Simply Lift', 'places': '2'})
-        self.assert_message_flashed('Great-booking complete!')
-
-        # Teste la déconnexion
-        response = self.client.get('/logout')
-        # self.assert_redirects(response, '/')
-        self.assertEqual(response.status_code, 302)
+from projet_11_oc.tests.conftest import client
 
 
+
+def test_integration(client):
+    # Load initial data
+    clubs = loadClubs()
+    competitions = loadCompetitions()
+
+    # Test home page
+    response = client.get('/')
+    assert response.status_code == 200
+    assert b"Welcome to the GUDLFT Registration Portal!" in response.data
+
+    # Test form submission with valid email address
+    response = client.post('/showSummary', data={'email': 'john@simplylift.co'})
+    assert response.status_code == 200
+    assert b"Welcome, john@simplylift.co" in response.data
+
+    # Test reservation for an existing competition and club
+    response = client.get('/book/Spring%20Festival/Simply%20Lift')
+    assert response.status_code == 200
+    assert b"How many places?" in response.data
+
+    # Test purchasing places with valid data
+    response = client.post('/purchasePlaces', data={'competition': 'Spring Festival', 'club': 'Simply Lift', 'places': '2'})
+    assert response.status_code == 200
+    assert b"Great-booking complete!" in response.data
+
+    # Test logout
+    response = client.get('/logout')
+    assert response.status_code == 302
+    assert response.location == '/'
