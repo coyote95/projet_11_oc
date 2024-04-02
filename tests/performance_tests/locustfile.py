@@ -5,8 +5,8 @@ It imports the HttpUser and task classes from the Locust library. The tasks incl
 - 'show_summary': Sends a POST request to the '/showSummary' endpoint with a sample email payload.
 """
 
-
 from locust import HttpUser, task
+
 
 class ProjectPerfTest(HttpUser):
 

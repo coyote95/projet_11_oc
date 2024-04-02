@@ -5,13 +5,11 @@ It imports the 'client' fixture from the conftest module to simulate requests to
 - If the page contains the expected information about booking for the Spring Festival event.
 """
 
-
 from projet_11_oc.tests.conftest import client
 
+
 def test_valid_booking(client):
-    response = client.get('/book/Spring%20Festival/Simply%20Lift')
+    response = client.get("/book/Spring%20Festival/Simply%20Lift")
     assert response.status_code == 200
-    assert b'Booking for' in response.data
-    assert b'Spring Festival' in response.data
-
-
+    assert b"Booking for" in response.data
+    assert b"Spring Festival" in response.data
