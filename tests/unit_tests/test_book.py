@@ -1,3 +1,11 @@
+"""
+Unit test function verifies the behavior of the booking process in the GUDLFT application.
+It imports the 'client' fixture from the conftest module to simulate requests to the application. The test checks:
+- If the booking page is successfully loaded (status code 200).
+- If the page contains the expected information about booking for the Spring Festival event.
+"""
+
+
 from projet_11_oc.tests.conftest import client
 
 def test_valid_booking(client):
@@ -7,7 +15,3 @@ def test_valid_booking(client):
     assert b'Spring Festival' in response.data
 
 
-# def test_invalid_booking(client):
-#     response = client.get('/book/non_existing_competition/non_existing_club')
-#     assert response.status_code == 200
-#     assert b'Something went wrong-please try again' in response.data

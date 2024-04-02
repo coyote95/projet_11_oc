@@ -1,3 +1,29 @@
+"""
+Unit tests for purchasing places functionality in the GUDLFT web application.
+
+This module contains several test cases to verify the behavior of the purchasePlaces endpoint in the GUDLFT application.
+The tests import the 'client' and 'fixture_data' fixtures from the conftest module to simulate requests and data required for testing.
+
+test_purchase_places_status_code:
+    Test case to check the status code of the purchasePlaces endpoint.
+
+test_purchase_places_points_allowed:
+    Test case to verify the purchase of places when the club has sufficient points.
+
+test_purchase_places_points_unallowed:
+    Test case to verify the purchase of places when the club has insufficient points.
+
+test_purchase_places_more_twelve_points:
+    Test case to verify the purchase of places when the club tries to book more than 12 places.
+
+test_purchase_places_past_competition:
+    Test case to verify the purchase of places for a past competition.
+
+test_purchase_places_update_points:
+    Test case to verify the update of points after purchasing places.
+"""
+
+
 from projet_11_oc.tests.conftest import client, fixture_data
 from projet_11_oc.server import competitions, clubs  # Import the global variables
 

@@ -1,4 +1,17 @@
+"""
+This file contains integration tests for the GUDLFT web application, which tests the interaction
+of multiple components together.
+
+ The integration test covers the following scenarios:
+- Testing the home page to ensure it loads successfully and displays the welcome message.
+- Testing form submission with a valid email address.
+- Testing reservation for an existing competition and club.
+- Testing purchasing places with valid data.
+- Testing logout functionality.
+"""
+
 from flask import Flask, url_for
+
 from projet_11_oc.server import app, loadClubs, loadCompetitions
 from projet_11_oc.tests.conftest import client
 
