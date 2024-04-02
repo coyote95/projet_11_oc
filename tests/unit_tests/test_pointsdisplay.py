@@ -3,7 +3,7 @@ Unit test for the points display board in the GUDLFT web application.
 It imports the 'client' fixture from the conftest module to simulate requests to the application.
 """
 
-from projet_11_oc.tests.conftest import client
+from ..conftest import client
 
 
 def test_points_display(client):

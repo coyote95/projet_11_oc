@@ -3,7 +3,7 @@ Unit tests for loading clubs and competitions data in the GUDLFT server module.
 """
 
 import pytest
-from projet_11_oc.server import loadClubs, loadCompetitions
+from server import loadClubs, loadCompetitions
 
 
 def test_loadClubs():

@@ -31,7 +31,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-from projet_11_oc.server import app
+from server import app
 
 
 class Testfunctional(TestCase):

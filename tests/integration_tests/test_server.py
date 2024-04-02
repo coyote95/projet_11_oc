@@ -12,8 +12,8 @@ of multiple components together.
 
 from flask import Flask, url_for
 
-from projet_11_oc.server import app, loadClubs, loadCompetitions
-from projet_11_oc.tests.conftest import client
+from server import app, loadClubs, loadCompetitions
+from ..conftest import client
 
 
 def test_integration(client):

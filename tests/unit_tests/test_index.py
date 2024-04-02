@@ -3,7 +3,7 @@ Unit test verifies the response of the index route ('/') in the GUDLFT applicati
 It imports the 'client' fixture from the conftest module to simulate requests to the application.
 """
 
-from projet_11_oc.tests.conftest import client
+from ..conftest import client
 
 
 def test_index_response(client):

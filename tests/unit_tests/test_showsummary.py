@@ -11,7 +11,7 @@ test_show_summary_invalid_email:
     Test case to check the response when providing an invalid email address.
 """
 
-from projet_11_oc.tests.conftest import client
+from ..conftest import client
 
 
 def test_show_summary_valid_email(client):

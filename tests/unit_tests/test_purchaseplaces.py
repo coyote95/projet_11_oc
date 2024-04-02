@@ -23,8 +23,8 @@ test_purchase_places_update_points:
     Test case to verify the update of points after purchasing places.
 """
 
-from projet_11_oc.tests.conftest import client, fixture_data
-from projet_11_oc.server import competitions, clubs  # Import the global variables
+from ..conftest import client, fixture_data
+from server import competitions, clubs  # Import the global variables
 
 
 def test_purchase_places_status_code(client, fixture_data):
@@ -43,8 +43,8 @@ def test_purchase_places_points_allowed(client, fixture_data, monkeypatch):
     ]
 
     # Use monkeypatch to substitute the global variables
-    monkeypatch.setattr("projet_11_oc.server.clubs", mocked_clubs)
-    monkeypatch.setattr("projet_11_oc.server.competitions", mocked_competitions)
+    monkeypatch.setattr("server.clubs", mocked_clubs)
+    monkeypatch.setattr("server.competitions", mocked_competitions)
 
     response = client.post("/purchasePlaces", data=fixture_data)
 
@@ -63,8 +63,8 @@ def test_purchase_places_points_unallowed(client, fixture_data, monkeypatch):
     ]
 
     # Use monkeypatch to substitute the global variables
-    monkeypatch.setattr("projet_11_oc.server.clubs", mocked_clubs)
-    monkeypatch.setattr("projet_11_oc.server.competitions", mocked_competitions)
+    monkeypatch.setattr("server.clubs", mocked_clubs)
+    monkeypatch.setattr("server.competitions", mocked_competitions)
 
     response = client.post("/purchasePlaces", data=fixture_data)
 
@@ -84,8 +84,8 @@ def test_purchase_places_more_twelve_points(client, wrong_fixture_data, monkeypa
     ]
 
     # Use monkeypatch to substitute the global variables
-    monkeypatch.setattr("projet_11_oc.server.clubs", mocked_clubs)
-    monkeypatch.setattr("projet_11_oc.server.competitions", mocked_competitions)
+    monkeypatch.setattr("server.clubs", mocked_clubs)
+    monkeypatch.setattr("server.competitions", mocked_competitions)
 
     response = client.post("/purchasePlaces", data=wrong_fixture_data)
 
@@ -103,8 +103,8 @@ def test_purchase_places_past_competition(client, fixture_data, monkeypatch):
     ]
 
     # Use monkeypatch to substitute the global variables
-    monkeypatch.setattr("projet_11_oc.server.clubs", mocked_clubs)
-    monkeypatch.setattr("projet_11_oc.server.competitions", mocked_competitions)
+    monkeypatch.setattr("server.clubs", mocked_clubs)
+    monkeypatch.setattr("server.competitions", mocked_competitions)
 
     response = client.post("/purchasePlaces", data=fixture_data)
 
@@ -122,8 +122,8 @@ def test_purchase_places_update_points(client, fixture_data, monkeypatch):
     ]
 
     # Use monkeypatch to substitute the global variables
-    monkeypatch.setattr("projet_11_oc.server.clubs", mocked_clubs)
-    monkeypatch.setattr("projet_11_oc.server.competitions", mocked_competitions)
+    monkeypatch.setattr("server.clubs", mocked_clubs)
+    monkeypatch.setattr("server.competitions", mocked_competitions)
 
     response = client.post("/purchasePlaces", data=fixture_data)
 

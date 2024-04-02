@@ -5,7 +5,7 @@ It imports the 'client' fixture from the conftest module to simulate requests to
 - If the page contains the expected information about booking for the Spring Festival event.
 """
 
-from projet_11_oc.tests.conftest import client
+from ..conftest import client
 
 
 def test_valid_booking(client):
